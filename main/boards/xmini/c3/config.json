@@ -9,7 +9,8 @@
                 "CONFIG_PM_ENABLE=y",
                 "CONFIG_FREERTOS_USE_TICKLESS_IDLE=y",
                 "CONFIG_USE_ESP_WAKE_WORD=y",
-                "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y"
+                "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y",
+                "CONFIG_OTA_URL=\"http://192.168.1.6:8002/xiaozhi/ota/\""
             ]
         }
     ]
