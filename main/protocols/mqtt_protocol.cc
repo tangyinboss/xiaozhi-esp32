@@ -139,6 +139,17 @@ bool MqttProtocol::StartMqttClient(bool report_error) {
                     }
                 });
             }
+                    } else if (strcmp(type->valuestring, "wakeup") == 0) {
+            // 服务端远程唤醒：待机态也可处理（不依赖音频通道/on_incoming_json_）。
+            std::string wakeup_reason;
+            auto r = cJSON_GetObjectItem(root, "reason");
+            if (cJSON_IsString(r) && r->valuestring) {
+                wakeup_reason = r->valuestring;
+            }
+            ESP_LOGI(TAG, "Remote wakeup requested: %s", wakeup_reason.c_str());
+            Application::GetInstance().Schedule([wakeup_reason]() {
+                Application::GetInstance().WakeWordInvoke(wakeup_reason);
+            });
         } else if (on_incoming_json_ != nullptr) {
             on_incoming_json_(root);
         }
